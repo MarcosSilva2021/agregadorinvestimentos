@@ -15,14 +15,13 @@ public class UserService {
     private UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
-
         this.userRepository = userRepository;
     }
 
-    public UUID createUser(CreateUserDto createUserDto){
+    public UUID createUser(CreateUserDto createUserDto) {
         // converter DTO -> Entity
         var entity = new User(
-                UUID.randomUUID(),
+                //UUID.randomUUID(), //-- conflito de add UUID entre aqui e o proprio hibernete - que ja add o UUID na inserção
                 createUserDto.username(),
                 createUserDto.email(),
                 createUserDto.password(),

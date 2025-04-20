@@ -4,14 +4,16 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 @Entity
 @Table(name = "tb_users")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    //@Column(name = "userId", columnDefinition = "BINARY(16)")
     private UUID userId;
 
     @Column(name = "username")
@@ -29,6 +31,14 @@ public class User {
     private Instant updateTimestamp;
 
     public User() {
+    }
+
+    public User(String username, String email, String password, Instant creationTimestamp, Instant updateTimestamp) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.creationTimestamp = creationTimestamp;
+        this.updateTimestamp = updateTimestamp;
     }
 
     public User(UUID userId, String username, String email, String password, Instant creationTimestamp, Instant updateTimestamp) {
