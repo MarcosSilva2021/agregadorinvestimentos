@@ -1,6 +1,7 @@
 package dev.mar.agregadorinvestimentos.service;
 
 import dev.mar.agregadorinvestimentos.controller.CreateUserDto;
+import dev.mar.agregadorinvestimentos.controller.UpdateUserDto;
 import dev.mar.agregadorinvestimentos.entity.User;
 import dev.mar.agregadorinvestimentos.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,28 @@ public class UserService {
         if (userExists){
             userRepository.deleteById(id);
         }
+    }
+
+    public void updateUserById(String userId, UpdateUserDto updateUserDto){
+        var id = UUID.fromString(userId);
+
+        var userEntity = userRepository.findById(id);
+
+        if (userEntity.isPresent()){
+            var user = userEntity.get();
+
+            if (updateUserDto.username() != null){
+                user.setUsername(updateUserDto.username());
+            }
+
+            if (updateUserDto.password() != null){
+                user.setPassword(updateUserDto.password());
+            }
+
+            userRepository.save(user);
+
+        }
+
     }
 
 }

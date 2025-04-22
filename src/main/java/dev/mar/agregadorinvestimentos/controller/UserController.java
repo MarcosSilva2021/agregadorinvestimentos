@@ -50,5 +50,11 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping("/{userId}")
+    public ResponseEntity<Void> updateUserBYId(@PathVariable("userId") String userId, @RequestBody UpdateUserDto updateUserDto){
+        userService.updateUserById(userId, updateUserDto);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
