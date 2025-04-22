@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/users")
@@ -43,6 +44,11 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> deleteById(@PathVariable("userId") String userId) {
+        userService.deleteByid(userId);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }
