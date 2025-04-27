@@ -15,6 +15,9 @@ import java.time.Instant;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
+
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
     // Padrão - 3 way
@@ -39,7 +42,7 @@ class UserServiceTest {
 
             //Arrange
             var entity = new User(
-                    //UUID.randomUUID(),
+                    UUID.randomUUID(),
                     "username",
                     "email@email.com",
                     "password",
@@ -52,10 +55,12 @@ class UserServiceTest {
 
             //Act
             var output = userService.createUser(input);
-            assertNotNull(output) ;
+
             //Assert
+            assertNotNull(output);
 
         }
+
 
     }
 
