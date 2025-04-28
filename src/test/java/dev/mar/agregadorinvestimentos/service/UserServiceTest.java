@@ -96,8 +96,8 @@ class UserServiceTest {
     class getUserById {
 
        @Test
-       @DisplayName("Should get user by id with success")
-       void shouldGetUserByIdWithSuccess() {
+       @DisplayName("Should get user by id with success when optional is present")
+       void shouldGetUserByIdWithSuccessWhenOptionalIsPresent() {
 
            //Arrange
            var user = new User(
