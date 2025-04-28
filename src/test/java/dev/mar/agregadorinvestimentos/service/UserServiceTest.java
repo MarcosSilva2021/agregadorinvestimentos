@@ -3,10 +3,13 @@ package dev.mar.agregadorinvestimentos.service;
 import dev.mar.agregadorinvestimentos.controller.CreateUserDto;
 import dev.mar.agregadorinvestimentos.entity.User;
 import dev.mar.agregadorinvestimentos.repository.UserRepository;
+import jakarta.persistence.Column;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -33,6 +36,9 @@ class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
+    @Captor
+    private ArgumentCaptor<User> userArgumentCaptor;
+
     // criando subclasses
     @Nested
     class createUser {
@@ -51,7 +57,7 @@ class UserServiceTest {
                     null
 
             );
-            doReturn(entity).when(userRepository).save(any());
+            doReturn(entity).when(userRepository).save(userArgumentCaptor.capture());
             var input = new CreateUserDto("name", "email@email.com", "123");
 
             //Act
@@ -59,6 +65,13 @@ class UserServiceTest {
 
             //Assert
             assertNotNull(output);
+
+            // captura o usuario criando no teste
+            var userCaptured = userArgumentCaptor.getValue();
+
+            assertEquals(input.username(), userCaptured.getUsername());
+            assertEquals(input.email(), userCaptured.getEmail());
+            assertEquals(input.password(), userCaptured.getPassword());
 
         }
 
