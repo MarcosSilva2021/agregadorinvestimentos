@@ -118,5 +118,22 @@ class UserServiceTest {
            assertTrue(output.isPresent());
            assertEquals(user.getUserId(), uuidArgumentCaptor.getValue());
        }
+
+       @Test
+       @DisplayName("Should get user by id with success when optional is empty")
+       void shouldGetUserByIdWithSuccessWhenOptionalIsEmpty() {
+
+           //Arrange
+           var userId = UUID.randomUUID();
+
+           doReturn(Optional.empty()).when(userRepository).findById(uuidArgumentCaptor.capture());
+
+           //Act
+           var output = userService.getUserById(userId.toString());
+
+           //Assert
+           assertTrue(output.isEmpty());
+           assertEquals(userId, uuidArgumentCaptor.getValue());
+       }
    }
 }
