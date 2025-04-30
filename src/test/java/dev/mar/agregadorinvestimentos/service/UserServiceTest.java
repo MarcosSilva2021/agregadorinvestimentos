@@ -173,8 +173,8 @@ class UserServiceTest {
    class deleteByid{
 
        @Test
-       @DisplayName("should delete user with success")
-       void shouldDeleteUserWithSuccess() {
+       @DisplayName("should delete user with success when user exists")
+       void shouldDeleteUserWithSuccessWhenUserExists() {
 
            //Arrange
           doReturn(true)
