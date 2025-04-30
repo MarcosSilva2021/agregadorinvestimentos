@@ -198,5 +198,28 @@ class UserServiceTest {
           verify(userRepository, times(1)).existsById(idList.get(0));
           verify(userRepository, times(1)).deleteById(idList.get(1));
        }
+
+       @Test
+       @DisplayName("should not delete user when user Not exists")
+       void shouldNotDeleteUserWhenUserNotExists() {
+
+           //Arrange
+           doReturn(false)
+                   .when(userRepository)
+                   .existsById(uuidArgumentCaptor.capture());
+
+           var userId = UUID.randomUUID();
+
+           //Act
+           userService.deleteByid(userId.toString());
+
+           // Assert
+           assertEquals(userId, uuidArgumentCaptor.getValue());
+
+           verify(userRepository, times(1))
+                   .existsById(uuidArgumentCaptor.getValue());
+
+           verify(userRepository, times(0)).deleteById(any());
+       }
    }
 }
