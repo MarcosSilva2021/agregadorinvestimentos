@@ -222,4 +222,33 @@ class UserServiceTest {
            verify(userRepository, times(0)).deleteById(any());
        }
    }
+
+   @Nested
+   class updateUserById{
+
+       @Test
+       @DisplayName("Should update user by id when user exists and username and password is filled")
+       void shouldGetUserByIdWithSuccessWhenOptionalIsPresent() {
+
+           //Arrange
+           var user = new User(
+                   UUID.randomUUID(),
+                   "username",
+                   "email@email.com",
+                   "password",
+                   Instant.now(),
+                   null
+
+           );
+           doReturn(Optional.of(user)).when(userRepository).findById(uuidArgumentCaptor.capture());
+
+           //Act
+           var output = userService.getUserById(user.getUserId().toString());
+
+           //Assert
+           assertTrue(output.isPresent());
+           assertEquals(user.getUserId(), uuidArgumentCaptor.getValue());
+       }
+   }
+
 }
