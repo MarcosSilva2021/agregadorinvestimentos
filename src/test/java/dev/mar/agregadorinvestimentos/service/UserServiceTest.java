@@ -1,6 +1,7 @@
 package dev.mar.agregadorinvestimentos.service;
 
 import dev.mar.agregadorinvestimentos.controller.CreateUserDto;
+import dev.mar.agregadorinvestimentos.controller.UpdateUserDto;
 import dev.mar.agregadorinvestimentos.entity.User;
 import dev.mar.agregadorinvestimentos.repository.UserRepository;
 import jakarta.persistence.Column;
@@ -228,9 +229,14 @@ class UserServiceTest {
 
        @Test
        @DisplayName("Should update user by id when user exists and username and password is filled")
-       void shouldGetUserByIdWithSuccessWhenOptionalIsPresent() {
+       void shouldUpdateUserByWhenUserExistsAndUsernameAndPasswordIsFilled() {
 
            //Arrange
+           var updateUserDto = new UpdateUserDto(
+                   "newUsername",
+                   "newPassword"
+           );
+
            var user = new User(
                    UUID.randomUUID(),
                    "username",
@@ -240,15 +246,33 @@ class UserServiceTest {
                    null
 
            );
-           doReturn(Optional.of(user)).when(userRepository).findById(uuidArgumentCaptor.capture());
+           doReturn(Optional.of(user))
+                   .when(userRepository)
+                   .findById(uuidArgumentCaptor.capture());
+
+           doReturn(user)
+                   .when(userRepository)
+                   .save(userArgumentCaptor.capture());
 
            //Act
-           var output = userService.getUserById(user.getUserId().toString());
+           userService.updateUserById(user.getUserId().toString(), updateUserDto);
 
            //Assert
-           assertTrue(output.isPresent());
            assertEquals(user.getUserId(), uuidArgumentCaptor.getValue());
+
+           var userCaptured = userArgumentCaptor.getValue();
+
+           assertEquals(updateUserDto.username(), userCaptured.getUsername());
+           assertEquals(updateUserDto.password(), userCaptured.getPassword());
+
+           verify(userRepository, times(1))
+                   .findById(uuidArgumentCaptor.getValue());
+
+           verify(userRepository, times(1))
+                   .save(user);
        }
+
+
    }
 
 }
