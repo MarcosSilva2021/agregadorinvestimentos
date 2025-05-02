@@ -138,6 +138,10 @@ class UserServiceTest {
        }
    }
 
+
+
+
+
    @Nested
    class listUsers {
 
@@ -272,6 +276,34 @@ class UserServiceTest {
                    .save(user);
        }
 
+       @Test
+       @DisplayName("Should not update when user not exists")
+       void shouldNotUpdateUserWhenUserNotExists() {
+
+           //Arrange
+           var updateUserDto = new UpdateUserDto(
+                   "newUsername",
+                   "newPassword"
+           );
+
+           var userId = UUID.randomUUID();
+
+           doReturn(Optional.empty())
+                   .when(userRepository)
+                   .findById(uuidArgumentCaptor.capture());
+
+           //Act
+           userService.updateUserById(userId.toString(), updateUserDto);
+
+           //Assert
+           assertEquals(userId, uuidArgumentCaptor.getValue());
+
+           verify(userRepository, times(1))
+                   .findById(uuidArgumentCaptor.getValue());
+
+           verify(userRepository, times(0))
+                   .save(any());
+       }
 
    }
 
