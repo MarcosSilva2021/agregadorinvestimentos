@@ -139,10 +139,73 @@ class UserServiceTest {
    }
 
 
+    @Nested
+    class listUser {
+
+        @Test
+        @DisplayName("Should return all users with success")
+        void shouldReturnAllUsersWithSuccess() {
+
+            // Arrange
+            var user1 = new User(
+                    UUID.randomUUID(),
+                    "username1",
+                    "email1@email.com",
+                    "password1",
+                    Instant.now(),
+                    null
+            );
+            var user2 = new User(
+                    UUID.randomUUID(),
+                    "username2",
+                    "email2@email.com",
+                    "password2",
+                    Instant.now(),
+                    null
+            );
+            var userList = List.of(user1, user2);
+            doReturn(userList)
+                    .when(userRepository)
+                    .findAll();
+
+            // Act
+            var output = userService.listUser();
+
+            // Assert
+            assertNotNull(output);
+            assertEquals(userList.size(), output.size());
+            assertTrue(output.contains(user1));
+            assertTrue(output.contains(user2));
+
+            // Verifica se o método findAll foi chamado corretamente
+            verify(userRepository, times(1)).findAll();
+        }
+
+        @Test
+        @DisplayName("Should return empty list when no users exist")
+        void shouldReturnEmptyListWhenNoUsersExist() {
+
+            // Arrange
+            var userList = List.<User>of();  // Lista vazia
+            doReturn(userList)
+                    .when(userRepository)
+                    .findAll();
+
+            // Act
+            var output = userService.listUser();
+
+            // Assert
+            assertNotNull(output);
+            assertTrue(output.isEmpty());  // Verifica se a lista retornada está vazia
+
+            // Verifica se o método findAll foi chamado corretamente
+            verify(userRepository, times(1)).findAll();
+        }
+    }
 
 
 
-   @Nested
+    @Nested
    class listUsers {
 
        @Test
