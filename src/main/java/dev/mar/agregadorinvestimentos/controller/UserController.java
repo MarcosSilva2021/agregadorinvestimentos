@@ -1,5 +1,8 @@
 package dev.mar.agregadorinvestimentos.controller;
 
+import dev.mar.agregadorinvestimentos.controller.dto.CreateAccountDto;
+import dev.mar.agregadorinvestimentos.controller.dto.CreateUserDto;
+import dev.mar.agregadorinvestimentos.controller.dto.UpdateUserDto;
 import dev.mar.agregadorinvestimentos.entity.User;
 import dev.mar.agregadorinvestimentos.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/users")
@@ -54,6 +56,13 @@ public class UserController {
     public ResponseEntity<Void> updateUserBYId(@PathVariable("userId") String userId, @RequestBody UpdateUserDto updateUserDto){
         userService.updateUserById(userId, updateUserDto);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{userId}/accounts")
+    public ResponseEntity<Void> deleteById2(@PathVariable("userId") String userId,
+                                            @RequestBody CreateAccountDto createAccountDto) {
+        userService.createAccount(userId, createAccountDto);
+        return ResponseEntity.ok().build();
     }
 
 

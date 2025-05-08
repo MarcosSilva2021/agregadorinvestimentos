@@ -1,10 +1,15 @@
 package dev.mar.agregadorinvestimentos.service;
 
-import dev.mar.agregadorinvestimentos.controller.CreateUserDto;
-import dev.mar.agregadorinvestimentos.controller.UpdateUserDto;
+import dev.mar.agregadorinvestimentos.controller.dto.CreateAccountDto;
+import dev.mar.agregadorinvestimentos.controller.dto.CreateUserDto;
+import dev.mar.agregadorinvestimentos.controller.dto.UpdateUserDto;
+import dev.mar.agregadorinvestimentos.entity.BillingAddress;
 import dev.mar.agregadorinvestimentos.entity.User;
+import dev.mar.agregadorinvestimentos.repository.AccountRepository;
 import dev.mar.agregadorinvestimentos.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 import java.util.List;
@@ -16,8 +21,14 @@ public class UserService {
 
     private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    private AccountRepository accountRepository;
+
+    private BillingAddress billingAddress;
+
+    public UserService(UserRepository userRepository, AccountRepository accountRepository, BillingAddress billingAddress) {
         this.userRepository = userRepository;
+        this.accountRepository = accountRepository;
+        this.billingAddress = billingAddress;
     }
 
     public UUID createUser(CreateUserDto createUserDto) {
@@ -79,4 +90,11 @@ public class UserService {
 
     }
 
+    public void createAccount(String userId, CreateAccountDto createAccountDto) {
+
+        var user = userRepository.findById(UUID.fromString(userId))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        // converter DTO -> Entity
+    }
 }
