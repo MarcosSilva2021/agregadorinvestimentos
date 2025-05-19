@@ -31,6 +31,14 @@ public class Account {
     public Account() {
     }
 
+    public Account(String description, User user, BillingAddress billingAddress, List<AccountStock> accountStocks) {
+
+        this.description = description;
+        this.user = user;
+        this.billingAddress = billingAddress;
+        this.accountStocks = accountStocks;
+    }
+
     public Account(UUID accountId, String description, User user, BillingAddress billingAddress, List<AccountStock> accountStocks) {
         this.accountId = accountId;
         this.description = description;

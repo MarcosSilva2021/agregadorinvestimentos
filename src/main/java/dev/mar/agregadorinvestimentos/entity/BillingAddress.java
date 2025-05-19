@@ -26,8 +26,8 @@ public class BillingAddress {
     public BillingAddress() {
     }
 
-    public BillingAddress(UUID id, Account account, String street, Integer number) {
-        this.id = id;
+    public BillingAddress( Account account, String street, Integer number) {
+
         this.account = account;
         this.street = street;
         this.number = number;
