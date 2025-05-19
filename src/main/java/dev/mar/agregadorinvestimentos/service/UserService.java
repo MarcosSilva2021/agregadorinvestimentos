@@ -1,5 +1,6 @@
 package dev.mar.agregadorinvestimentos.service;
 
+import dev.mar.agregadorinvestimentos.controller.dto.AccountsResponseDto;
 import dev.mar.agregadorinvestimentos.controller.dto.CreateAccountDto;
 import dev.mar.agregadorinvestimentos.controller.dto.CreateUserDto;
 import dev.mar.agregadorinvestimentos.controller.dto.UpdateUserDto;
@@ -117,5 +118,15 @@ public class UserService {
         );
 
         billingAddressRepository.save(billingAddress);
+    }
+
+    public List<AccountsResponseDto> listAccounts(String userId) {
+        var user = userRepository.findById(UUID.fromString(userId))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return user.getAccounts()
+                .stream()
+                .map(ac -> new AccountsResponseDto(ac.getAccountId().toString(), ac.getDescription()))
+                .toList();
     }
 }
