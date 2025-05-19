@@ -1,5 +1,6 @@
 package dev.mar.agregadorinvestimentos.controller;
 
+import dev.mar.agregadorinvestimentos.controller.dto.AccountsResponseDto;
 import dev.mar.agregadorinvestimentos.controller.dto.CreateAccountDto;
 import dev.mar.agregadorinvestimentos.controller.dto.CreateUserDto;
 import dev.mar.agregadorinvestimentos.controller.dto.UpdateUserDto;
@@ -63,6 +64,12 @@ public class UserController {
                                             @RequestBody CreateAccountDto createAccountDto) {
         userService.createAccount(userId, createAccountDto);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{userId}/accounts")
+    public ResponseEntity<List<AccountsResponseDto>> listAccounts(@PathVariable("userId") String userId) {
+        var accounts = userService.listAccounts(userId);
+        return ResponseEntity.ok(accounts);
     }
 
 
