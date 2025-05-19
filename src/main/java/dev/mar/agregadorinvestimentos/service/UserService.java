@@ -100,7 +100,7 @@ public class UserService {
 
         // converter DTO -> Entity
         var account = new Account(
-                UUID.randomUUID(),
+                //UUID.randomUUID(),
                 createAccountDto.description(),
                 user,
                 null,
@@ -110,7 +110,7 @@ public class UserService {
         var accountCreated = accountRepository.save(account);
 
         var billingAddress = new BillingAddress(
-                accountCreated.getAccountId(),
+               // accountCreated.getAccountId(),
                 account,
                 createAccountDto.street(),
                 createAccountDto.number()
