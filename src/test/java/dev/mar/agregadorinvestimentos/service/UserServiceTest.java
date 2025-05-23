@@ -1,10 +1,9 @@
 package dev.mar.agregadorinvestimentos.service;
 
-import dev.mar.agregadorinvestimentos.controller.CreateUserDto;
-import dev.mar.agregadorinvestimentos.controller.UpdateUserDto;
+import dev.mar.agregadorinvestimentos.controller.dto.CreateUserDto;
+import dev.mar.agregadorinvestimentos.controller.dto.UpdateUserDto;
 import dev.mar.agregadorinvestimentos.entity.User;
 import dev.mar.agregadorinvestimentos.repository.UserRepository;
-import jakarta.persistence.Column;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
