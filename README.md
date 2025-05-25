@@ -76,15 +76,38 @@ AccountStock --> AccountStockId : composite key
 | dto             | Classes exibe informações básicas da entity para inserção e visualização |
 
 
+## Rotas
+Users :
+- Adicionar - Post: http://localhost:8080/v1/users 
+- Listar - Get: http://localhost:8080/v1/users/{userId}
+- Listar - Get: http://localhost:8080/v1/users 
+- Editar - Put: http://localhost:8080/v1/users/{userId} 
+- Apagar - Delete: http://localhost:8080/v1/users/{userId}
+
+Accounts
+
+- Adicionar - Post: http://localhost:8080/v1/users/{userId}/accounts
+- Listar - Get: http://localhost:8080/v1/users/{userId}/accounts
+
+Stocks
+
+- Adicionar - Post: http://localhost:8080/v1/stocks
+- Listar - Get: http://localhost:8080/v1/users/{userId}/accounts
+- Associar conta e ação - Post: http://localhost:8080/v1/accounts/{accountsId}/stocks
+- Listar ações - Get: http://localhost:8080/v1/accounts/{accountsId}/stocks
+
 ## Extras
 
-### acessar o console do h2 database 
+### Acessar o console do h2 database 
 - http://localhost:8080/h2-console
 
-### link docker
+### API BRAP
+- https://brapi.dev
+
+### Link docker
 - https://spring.io/guides/gs/accessing-data-mysql
 
-### json online edit
+### Editor json online edit
 - https://jsoneditoronline.org/
 
 
