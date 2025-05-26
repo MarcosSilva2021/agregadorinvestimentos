@@ -101,7 +101,7 @@ Stocks
 ### Acessar o console do h2 database 
 - http://localhost:8080/h2-console
 
-### API BRAP
+### API BRAPI
 - https://brapi.dev
 
 ### Link docker
