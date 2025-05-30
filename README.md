@@ -8,7 +8,9 @@
 - Banco de dados - MySQL e h2database;
 - Armazenamento - Docker;
 - Postman - Requisições do Front-end;
-- intellij.
+- intellij;
+- Criando o container no docker local;
+- Deploy no hub.docker.com (tornando a aplicação independente !)
 
 ## Descrição básica
 - Esta api criar um CRUD de um Back-end de uma aplicação bancaria de investimento.
